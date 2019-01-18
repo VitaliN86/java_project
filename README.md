@@ -8,4 +8,7 @@ To create a table one can use this script:
 	date date,  
 	status int  
 );``  
-Project has a commandline-based interface.
+Project has a commandline-based interface.  
+One should pass one argument to the program: check date in the format yyyy-MM-dd.  
+For example,  
+``java_incubator 2019-01-09``

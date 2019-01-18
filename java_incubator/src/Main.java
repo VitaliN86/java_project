@@ -1,12 +1,7 @@
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,8 +20,17 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws SQLException, InterruptedException {
-        LocalDate checkDate = parseDate("2019-01-09");
+    public static void main(String[] args) throws InterruptedException, SQLException {
+        if (args.length != 1) {
+            System.out.println("Use one argument as a check date\nFor example, java_incubator 2019-01-09");
+            return;
+        }
+        LocalDate checkDate = parseDate(args[0]);
+        if (checkDate == null) {
+            System.out.println("Check date is incorrect, sorry");
+            System.out.println("e.g. Use 2019-01-09");
+            return;
+        }
         int maxCountOfThreads = 100;
         ExecutorService pool = Executors.newFixedThreadPool(maxCountOfThreads);
         long start = System.nanoTime();
@@ -46,4 +50,3 @@ public class Main {
         System.out.println(elapsedTime/1000000000.0);
     }
 }
-
